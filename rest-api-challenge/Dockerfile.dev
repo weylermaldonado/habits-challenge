@@ -1,0 +1,40 @@
+FROM node:12-slim as base
+ENV NODE_ENV=production
+EXPOSE 3000
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+RUN chown -R node:node /usr/src/app
+USER node
+COPY package.json .
+COPY package-lock.json .
+COPY . .
+RUN npm ci && npm cache clean --force
+
+
+FROM base as dev 
+ENV NODE_ENV=production
+ENV PATH=/usr/src/app/node_modules/.bin:$PATH
+RUN npm install --only=development
+CMD [ "npm", "run", "dev" ]
+
+FROM base as prod
+CMD ["node", "index.js"]
+
+
+# WORKDIR /usr/src/app
+
+# ARG NODE_ENV=development
+# ENV NODE_ENV ${NODE_ENV}
+# ENV PATH=/usr/src/app/node_modules/.bin:$PATH
+
+# # Install dependencies
+# COPY package.json .
+# COPY package-lock.json .
+# RUN npm ci && npm cache clean --force
+
+# # Bundle app source
+# COPY . .
+
+# # Exports
+# EXPOSE 3000
+# CMD [ "npm", "run", "dev" ]

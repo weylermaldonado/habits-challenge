@@ -1,0 +1,92 @@
+{
+    "unauthorizederror": {
+        "slug": "unauthorized",
+        "status": 401,
+        "code": 8000,
+        "description": "Ocurrió un error en la autenticación."
+    },
+    "missingfieldserror": {
+        "slug": "missing",
+        "status": 422,
+        "code": 8001,
+        "description": "La petición está incompleta."
+    },
+    "queryerror": {
+        "slug": "query",
+        "status": 500,
+        "code": 8002,
+        "description": "Ocurrió un error al realizar la consulta a la BD."
+    },
+    "unknownerror": {
+        "slug": "unknown",
+        "status": 503,
+        "code": 8003,
+        "description": "Se desconoce el error."
+    },
+    "badrequesterror": {
+        "slug": "request",
+        "status": 400,
+        "code": 8004,
+        "description": "La petición no tiene el formato adecuado."
+    },
+    "conflicterror": {
+        "slug": "conflict",
+        "status": 409,
+        "code": 8005,
+        "description": "Existe conflicto en la transacción de BD."
+    },
+    "thirdparterror": {
+        "slug": "third",
+        "status": 509,
+        "code": 8006,
+        "description": "Un servicio de terceros falló."
+    },
+    "notfounderror": {
+        "slug": "notfound",
+        "status": 404,
+        "code": 8007,
+        "description": "El recurso solicitado no se encontró."
+    },
+    "inactiveaccounterror": {
+        "slug": "inactive",
+        "status": 406,
+        "code": 8008,
+        "description": "El recurso solicitado no se encontró."
+    },
+    "sessionshutdownerror": {
+        "slug": "session",
+        "status": 405,
+        "code": 8009,
+        "description": "El recurso solicitado no se encontró."
+    },
+    "permissionerror": {
+        "slug": "permission",
+        "status": 405,
+        "code": 8010,
+        "description": "No se tienen los permisos necesarios para conitnuar con la operación."
+    },
+    "testerror": {
+        "slug": "permission",
+        "status": 509,
+        "code": 8011,
+        "description": "No se tienen los permisos necesarios para conitnuar con la operación."
+    },
+    "mimetypeerror": {
+        "slug": "mimetype",
+        "status": 400,
+        "code": 8012,
+        "description": "Error al cargar un archivo multimedia."
+    },
+    "followerror": {
+        "slug": "follow",
+        "status": 405,
+        "code": 8013,
+        "description": "No se tienen los permisos necesarios para conitnuar con la operación."
+    },
+    "blockederror": {
+        "slug": "blocked-user",
+        "status": 403,
+        "code": 8014,
+        "description": "El usuario ha sido blockeado."
+    }
+}

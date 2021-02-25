@@ -1,0 +1,15 @@
+version: "2.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: dev
+    container_name: node_app
+    restart: always
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
+    ports:
+      - "3000:3000"
