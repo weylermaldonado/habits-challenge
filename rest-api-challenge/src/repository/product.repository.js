@@ -74,7 +74,7 @@ function getProductByName(product) {
 };
 
 /**
- * Filter products by name.
+ * Get all products
  * @returns {Promise<Product>} Product[] 
  */
 function getAll() {
@@ -90,4 +90,27 @@ function getAll() {
         })
     });
 };
-module.exports = { insert, getAll, getProductById, getProductByName };
+/**
+ * Update the product.
+ * @param {String} partialQuery Partial query value
+ * @param {Object} values Array of field values.
+ */
+function updateProduct(partialQuery, values) {
+    return new Promise((resolve, reject) => {
+        db.run(`UPDATE inventory SET ${partialQuery} WHERE id = "${values}"`, (err, product) => {
+            if (err) {
+                logger.error(err.message);
+                return reject(ErrorFactory.queryError(err.message).toJSON());
+            }
+            logger.debug(`Successful updated ${this.changes}`)
+            return resolve(product);
+        })
+    });
+};
+module.exports = {
+    insert,
+    getAll,
+    getProductById,
+    getProductByName,
+    updateProduct
+};

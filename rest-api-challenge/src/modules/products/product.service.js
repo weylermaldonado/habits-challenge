@@ -51,6 +51,31 @@ class ProductService {
         });
     };
     /**
+     * Update a product given their id.
+     * @param {Object} productDto Product DTO
+     * @param {String} ProductId Product id
+     * @returns {Promise<Product>} Product 
+     */
+    update(productDto, { productId }) {
+        return new Promise((resolve, reject) => {
+            const queryData = this.__generatePartialQuery(productDto);
+            this.__productRepository.updateProduct(queryData.query, [productId])
+                .then((product) => resolve(product))
+                .catch((err) => reject(err));
+        });
+    };
+
+    /**
+     * Mapping the DTO to SQL statement.
+     * @param {Object} productDto Product DTO
+     * @returns {Object} Query 
+     */
+    __generatePartialQuery(productDto) {
+        return {
+            query: Object.keys(productDto).map((i) => ` ${i} = "${productDto[i]}"`).join(','),
+        };
+    }
+    /**
      * Attach the missing field fo the dto
      * to mapping to DB model
      * @param {Object} productDto Product dto

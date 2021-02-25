@@ -30,6 +30,19 @@ class ProductController {
                 .catch((err) => { console.log(err); return reject(err); });
         });
     };
+    /**
+    * Update a product given their id.
+    * @param {Object} productDto Product DTO
+    * @param {String} searchCriteria Product id
+    * @returns {Promise<Product>} Product 
+    */
+    update(productDto, searchCriteria) {
+        return new Promise((resolve, reject) => {
+            this.__productService.update(productDto, searchCriteria)
+                .then(() => resolve(ResponseHelper.responseFrom(200, { message: 'Updated successfully.' })))
+                .catch((err) => { console.log(err); return reject(err); });
+        });
+    };
 }
 
 module.exports = ProductController;
