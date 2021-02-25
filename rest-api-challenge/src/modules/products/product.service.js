@@ -1,4 +1,4 @@
-
+const { ValidatorHelper } = require('../../support');
 
 class ProductService {
 
@@ -18,6 +18,36 @@ class ProductService {
             this.__productRepository.insert(product)
                 .then((product) => resolve(product))
                 .catch((err) => reject(err));
+        });
+    };
+
+    /**
+     * Filter the products by name or id.
+     * Or get all the product list.
+     * @param {Object} filterCriteria Filter dto
+     * @returns {Promise<Product | Product[]>} Product 
+     */
+    filterProducts(filterCriteria) {
+        return new Promise((resolve, reject) => {
+            if (ValidatorHelper.isEmpty(filterCriteria)) {
+                this.__productRepository.getAll()
+                    .then((product) => { return resolve(product); })
+                    .catch((err) => { return reject(err); });
+            }
+
+            if (filterCriteria.name) {
+                this.__productRepository.getProductByName(filterCriteria)
+                    .then((product) => !product ? {} : product)
+                    .then((product) => { return resolve(product); })
+                    .catch((err) => { return reject(err); });
+            }
+
+            if (filterCriteria.id) {
+                this.__productRepository.getProductById(filterCriteria)
+                    .then((product) => !product ? {} : product)
+                    .then((product) => { return resolve(product); })
+                    .catch((err) => { return reject(err); });
+            }
         });
     };
     /**

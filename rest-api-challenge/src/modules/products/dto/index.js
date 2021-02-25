@@ -10,4 +10,11 @@ const CreateProductDto = Joi.object({
     })
 });
 
-module.exports = { CreateProductDto };
+const FilterProductsDto = Joi.object({
+    query: Joi.object().keys({
+        id: Joi.string(),
+        name: Joi.string()
+    })
+});
+
+module.exports = { CreateProductDto, FilterProductsDto };
