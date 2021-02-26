@@ -2,21 +2,26 @@ const { ValidatorHelper } = require('../../support');
 
 class ProductService {
 
-    constructor(productRepository, uniqueId) {
+    constructor(productRepository, uniqueId, productEvents) {
         this.__productRepository = productRepository;
         this.__uniqueId = uniqueId;
+        this.__productEvents = productEvents;
     }
     /**
 * Insert new product into the database.
 * @param {Object} product Product DTO
+* @param {Object} socketServer Socket io instance
 * @returns {Promise<Product>} Product 
 */
 
-    create(productDto) {
+    create(productDto, socketServer) {
         return new Promise((resolve, reject) => {
             const product = this.__mappingDto(productDto);
             this.__productRepository.insert(product)
-                .then((product) => resolve(product))
+                .then((product) => {
+                    this.__productEvents.onCreated(product, socketServer);
+                    return resolve(product);
+                })
                 .catch((err) => reject(err));
         });
     };
@@ -67,12 +72,16 @@ class ProductService {
     /**
      * Delete a product by id.
      * @param {String} productId Product id.
+     * @param {Object} socketServer Socket io instance
      * @returns {Promise<void>} Promise
      */
-    delete({ productId }) {
+    delete({ productId }, socketServer) {
         return new Promise((resolve, reject) => {
             this.__productRepository.deleteById(productId)
-                .then((product) => resolve(product))
+                .then((product) => {
+                    this.__productEvents.onDeleted({ id: productId }, socketServer);
+                    return resolve(product)
+                })
                 .catch((err) => reject(err));
         });
     };

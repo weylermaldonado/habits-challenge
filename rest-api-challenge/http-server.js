@@ -5,6 +5,9 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const { Logger } = require('./src/support');
 const logger = new Logger('HttpServer');
+const socket = require('socket.io');
+const httpSS = require('http');
+
 /**
  * HttpServer
  */
@@ -16,7 +19,9 @@ class HttpServer {
    */
   constructor(router, port) {
     this.app = express();
+    this.socketServer = httpSS.Server(this.app);
     this.port = port || 3000;
+    this.host = process.env.HOST || '0.0.0.0';
     this.router = router;
 
     this.initConfig();
@@ -25,13 +30,27 @@ class HttpServer {
    * Run the server
    */
   listen() {
-    if (process.env.NODE_ENV !== 'test') {
-      const server = this.app.listen(this.port, () => {
-        logger.debug(`API running in port: ${this.port}`);
-      });
-      return server;
-    }
-    return this.app;
+    const server = this.socketServer.listen(this.port, this.host, () => {
+      logger.debug(`API running in port: ${this.port}`);
+    });
+    return server;
+
+  }
+  /**
+   * Set the io as global module and set up the server.
+   * @param {Object} server Server instance 
+   * @returns {void}
+   */
+  setupSocketServer(server) {
+    const io = socket(server, {
+      cors: {
+        origin: '*'
+      }
+    });
+    io.on('connection', (sock) => {
+      logger.debug('Socket server listening.')
+    });
+    this.app.set('socketio', io);
   }
 }
 
@@ -84,9 +103,9 @@ function initializeRouter() {
   }
 }
 
-HttpServer.prototype.initConfig = function() {
+HttpServer.prototype.initConfig = function () {
   initializeMiddlewares.call(this);
   initializeRouter.call(this);
 };
 
-module.exports = HttpServer;
+module.exports = { HttpServer };

@@ -8,11 +8,12 @@ class ProductController {
     /**
  * Insert new product into the database.
  * @param {Object} product Product DTO
+ * @param {Object} socketServer Socket io instance
  * @returns {Promise<Product>} Product 
  */
-    create(productDto) {
+    create(productDto, socketServer) {
         return new Promise((resolve, reject) => {
-            this.__productService.create(productDto)
+            this.__productService.create(productDto, socketServer)
                 .then((product) => resolve(ResponseHelper.responseFrom(201, product)))
                 .catch((err) => reject(err));
         });
@@ -46,11 +47,12 @@ class ProductController {
     /**
      * Delete a product by id.
      * @param {Object} searchCriteria Delete product DTO
+     * @param {Object} socketServer Socket io instance
      * @returns {Promise<Object>} Response  
      */
-    delete(searchCriteria) {
+    delete(searchCriteria, socketServer) {
         return new Promise((resolve, reject) => {
-            this.__productService.delete(searchCriteria)
+            this.__productService.delete(searchCriteria, socketServer)
                 .then(() => resolve(ResponseHelper.responseFrom(204, { message: 'Deleted successfully.' })))
                 .catch((err) => reject(err));
         });
