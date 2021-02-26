@@ -1,5 +1,31 @@
 # Levantar el proyecto
 
+Antes de levanatar el proyecto, cree un archivo `.env` basándose el archivo `.env.example`.
+
+### Eventos
+
+- Nombre: product-created
+- Payload:
+```JSON
+ {
+        "name": "test",
+        "type": "prueba",
+        "quantity": 32,
+        "price": 5.5,
+        "location": "mexico",
+        "created_at": "2021-02-26T21:11:40.471Z",
+        "id": "aKdvdtT66AnbzpIyFrUts"
+  }
+```
+
+- Nombre: product-deleted
+- Payload:
+```JSON
+ {
+        "id": "aKdvdtT66AnbzpIyFrUts"
+}
+```
+
 Usando docker compose
 ```bash
 docker-compose up
