@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const ProductResource = require('../modules/products/product.resource.js');
-
-router.use('/products', ProductResource);
+const { JwtMiddleware } = require('../middlewares')
+router.use('/products', JwtMiddleware.decodeJWT, ProductResource);
 
 module.exports = router;
