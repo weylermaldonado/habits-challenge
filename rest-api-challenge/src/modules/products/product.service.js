@@ -64,6 +64,18 @@ class ProductService {
                 .catch((err) => reject(err));
         });
     };
+    /**
+     * Delete a product by id.
+     * @param {String} productId Product id.
+     * @returns {Promise<void>} Promise
+     */
+    delete({ productId }) {
+        return new Promise((resolve, reject) => {
+            this.__productRepository.deleteById(productId)
+                .then((product) => resolve(product))
+                .catch((err) => reject(err));
+        });
+    };
 
     /**
      * Mapping the DTO to SQL statement.

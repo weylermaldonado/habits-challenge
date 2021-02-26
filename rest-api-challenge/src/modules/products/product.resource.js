@@ -2,7 +2,8 @@ const router = require('express').Router();
 const {
     CreateProductDto,
     FilterProductsDto,
-    UpdateProductDto
+    UpdateProductDto,
+    DeleteProductDto
 } = require('./dto');
 const { RequestValidator } = require('../../support');
 const { ProductController } = require('./product.module.js');
@@ -41,6 +42,18 @@ router.patch('/:productId', (req, res) => {
 
     ProductController
         .update(fields, criteria)
+        .then(({ status = 200, data = {} }) => res.status(status).json(data))
+        .catch(({ status = 500, data = {} }) => res.status(status).json(data));
+});
+
+router.delete('/:productId', (req, res) => {
+    const requestData = RequestValidator.fullValidate(DeleteProductDto, req);
+    if (requestData.error) return res.status(422).json(requestData);
+
+    const criteria = { ...requestData.paramsData() };
+
+    ProductController
+        .delete(criteria)
         .then(({ status = 200, data = {} }) => res.status(status).json(data))
         .catch(({ status = 500, data = {} }) => res.status(status).json(data));
 });

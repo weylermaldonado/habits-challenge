@@ -102,15 +102,35 @@ function updateProduct(partialQuery, values) {
                 logger.error(err.message);
                 return reject(ErrorFactory.queryError(err.message).toJSON());
             }
-            logger.debug(`Successful updated ${this.changes}`)
+            logger.debug(`Successful updated product ${values}`)
             return resolve(product);
         })
     });
 };
+
+/**
+ * Delete a product by id.
+ * @param {String} productId Product id.
+ * @returns {Promise<void>} Promise
+ */
+function deleteById(productId) {
+    return new Promise((resolve, reject) => {
+        db.run(`DELETE FROM inventory WHERE id = ?`, productId, (err, product) => {
+            if (err) {
+                logger.error(err.message);
+                return reject(ErrorFactory.queryError(err.message).toJSON());
+            }
+            logger.debug(`Successful deleted product ${productId}`)
+            return resolve(product);
+        })
+    });
+};
+
 module.exports = {
     insert,
     getAll,
     getProductById,
     getProductByName,
-    updateProduct
+    updateProduct,
+    deleteById
 };

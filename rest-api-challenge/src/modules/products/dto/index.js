@@ -30,4 +30,15 @@ const UpdateProductDto = Joi.object({
     })
 });
 
-module.exports = { CreateProductDto, FilterProductsDto, UpdateProductDto };
+const DeleteProductDto = Joi.object({
+    params: Joi.object().keys({
+        productId: Joi.string().required()
+    }),
+});
+
+module.exports = {
+    CreateProductDto,
+    FilterProductsDto,
+    UpdateProductDto,
+    DeleteProductDto
+};

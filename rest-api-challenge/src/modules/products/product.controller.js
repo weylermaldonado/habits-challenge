@@ -27,7 +27,7 @@ class ProductController {
         return new Promise((resolve, reject) => {
             this.__productService.filterProducts(filterCriteria)
                 .then((product) => resolve(ResponseHelper.responseFrom(200, product)))
-                .catch((err) => { console.log(err); return reject(err); });
+                .catch((err) => reject(err));
         });
     };
     /**
@@ -40,7 +40,19 @@ class ProductController {
         return new Promise((resolve, reject) => {
             this.__productService.update(productDto, searchCriteria)
                 .then(() => resolve(ResponseHelper.responseFrom(200, { message: 'Updated successfully.' })))
-                .catch((err) => { console.log(err); return reject(err); });
+                .catch((err) => reject(err));
+        });
+    };
+    /**
+     * Delete a product by id.
+     * @param {Object} searchCriteria Delete product DTO
+     * @returns {Promise<Object>} Response  
+     */
+    delete(searchCriteria) {
+        return new Promise((resolve, reject) => {
+            this.__productService.delete(searchCriteria)
+                .then(() => resolve(ResponseHelper.responseFrom(204, { message: 'Deleted successfully.' })))
+                .catch((err) => reject(err));
         });
     };
 }
