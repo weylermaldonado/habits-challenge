@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "9333a4f2-d42a-4984-84ad-61a1c1bc6ca4",
+		"name": "Habits",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjE0MzAxMTExLCJleHAiOjE2MTQzODc1MTF9.fh-rwIOMCa1l_GkpSTQYeqdzoFXod-EmO_2olReiMeA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test\",\n    \"type\": \"prueba\",\n    \"quantity\": 32,\n    \"price\": 5.50,\n    \"location\": \"mexico\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjE0MzAxMTExLCJleHAiOjE2MTQzODc1MTF9.fh-rwIOMCa1l_GkpSTQYeqdzoFXod-EmO_2olReiMeA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products?id=xxxxx&name=zxxxxxx",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "xxxxx",
+							"description": "Opcional, solo un criterio debe ser enviado a la vez."
+						},
+						{
+							"key": "name",
+							"value": "zxxxxxx",
+							"description": "Opcional, solo un criterio debe ser enviado a la vez."
+						}
+					]
+				},
+				"description": "UN criterio de búsqueda debe de ser enviado a la vez, en caso de no enviar ninguno se devuelve la lista de productos."
+			},
+			"response": []
+		},
+		{
+			"name": "Update product by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjE0MzAxMTExLCJleHAiOjE2MTQzODc1MTF9.fh-rwIOMCa1l_GkpSTQYeqdzoFXod-EmO_2olReiMeA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test\",\n    \"type\": \"prueba\",\n    \"quantity\": 32,\n    \"price\": 5.50,\n    \"location\": \"mexico\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/products/DQXfw-dJRClwQplgkMSBL",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"DQXfw-dJRClwQplgkMSBL"
+					]
+				},
+				"description": "Apply an partial updated, just send the fields to update."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjE0MzAxMTExLCJleHAiOjE2MTQzODc1MTF9.fh-rwIOMCa1l_GkpSTQYeqdzoFXod-EmO_2olReiMeA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products/-ux-7-0KRCJPu8Q5q937E",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"-ux-7-0KRCJPu8Q5q937E"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
